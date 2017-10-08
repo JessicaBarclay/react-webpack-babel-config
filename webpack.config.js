@@ -2,9 +2,9 @@
 // https://nodejs.org/api/path.html
 const path = require('path');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin'); // Import our plugin -> ADDED IN THIS STEP
+// Import our plugin
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// Constant with our paths
 const paths = {
   DIST: path.resolve(__dirname, 'dist'),
   SRC: path.resolve(__dirname, 'src'),
@@ -18,7 +18,7 @@ module.exports = {
     path: paths.DIST,
     filename: 'app.bundle.js',
   },
-  // Tell webpack to use html plugin -> ADDED IN THIS STEP
+  // Tell webpack to use html plugin
   // index.html is used as a template in which it'll inject bundled app.
   plugins: [
     new HtmlWebpackPlugin({

@@ -63,14 +63,14 @@ The server will now run at [http://localhost:8080/](http://localhost:8080/) when
 
 Create a `index.html` in `src`:
 
-```
+```html
 <!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
 
-    <title>React configuration</title>
+    <title>React Webpack Babel configuration</title>
   </head>
   <body>
   </body>
@@ -146,4 +146,27 @@ module: {
 resolve: {
   extensions: ['.js', '.jsx'],
 },
+```
+
+## React
+
+Time to install React
+
+`npm install --save react react-dom`
+
+Now we need to update our `index.html` to render our React app
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>React Webpack Babel configuration</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
 ```
