@@ -113,11 +113,11 @@ Run `npm run dev` and you should see Hello, world! in the console.
 
 ## Babel
 
-We need to installing the following four Babel packages
+We need to install the following four Babel packages
 
 `npm install --save-dev babel-core babel-loader babel-preset-env babel-preset-react`
 
-And lets add Babels default config file to root of our project
+And lets add Babel's default config file to root of our project
 
 `.babelrc`
 
@@ -169,4 +169,100 @@ Now we need to update our `index.html` to render our React app
     <div id="app"></div>
   </body>
 </html>
+```
+
+Run `npm run dev` to see your React app running
+
+### CSS
+
+To add CSS to your React app, you will need to use a loader
+
+`npm install --save-dev css-loader extract-text-webpack-plugin`
+
+Create your css file by creating a directory `src/css` then create within it `style.css`.
+Add some CSS to this file!
+```css
+body {
+  background: #f9fafb;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 32px;
+  margin: 0;
+  padding: 30px;
+}
+```
+
+We need to import our CSS file into `app.js`
+
+```js
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+
+import '../css/style.css';
+
+export default class App extends Component {
+  render() {
+    return (
+      <div>
+        React app
+      </div>
+    );
+  }
+}
+
+render(<App />, document.getElementById('app'));
+```
+
+And finally update `webpack.config.js`
+
+```js
+// We are using node's native package 'path'
+// https://nodejs.org/api/path.html
+const path = require('path');
+
+// Import our plugin
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const paths = {
+  DIST: path.resolve(__dirname, 'dist'),
+  SRC: path.resolve(__dirname, 'src'),
+  JS: path.resolve(__dirname, 'src/js'),
+};
+
+// Webpack configuration
+module.exports = {
+  entry: path.join(paths.JS, 'app.js'),
+  output: {
+    path: paths.DIST,
+    filename: 'app.bundle.js',
+  },
+  // Tell webpack to use html plugin
+  // index.html is used as a template in which it'll inject bundled app.
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(paths.SRC, 'index.html'),
+    }),
+    new ExtractTextPlugin('style.bundle.css'),
+  ],
+  // Babel loader config below
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: [
+          'babel-loader',
+        ],
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          use: 'css-loader',
+        }),
+      }
+    ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+};
 ```
