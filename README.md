@@ -1,4 +1,6 @@
-### React Webpack Babel configuration
+### React, Webpack & Babel app configuration
+
+Taken from [this]( https://github.com/Stanko/webpack-babel-react-revisited) tutorial
 
 First create a `package.json` and add the following
 
