@@ -1,21 +1,21 @@
-## React Webpack Babel configuration
+### React Webpack Babel configuration
 
-#### First create a `package.json` and add the following
+First create a `package.json` and add the following
 
 ```js
 {
   "name": "project-name"
 }
 ```
+### Webpack
 
-#### Install Webpack to transpile and bundle JavaScript files
+Install Webpack to transpile and bundle JavaScript files
 
 `npm install --save-dev webpack`
 
 Create a `src` directory, with a `js` directory within it. Then add a `app.js` file within `src/js`
 
 Add `console.log('Hello, world!');` to `src/js/app.js`
-
 
 Create a Webpack configuration file in the root of the project
 
@@ -39,7 +39,7 @@ Try running Webpack from the command line
 `npm run build`
 
 
-#### Add a dev server. We can do this with Webpack
+### Add a dev server. We can do this with Webpack
 
 
 `npm install -save-dev webpack-dev-server`
@@ -77,7 +77,7 @@ Create a `index.html` in `src`:
 </html>
 ```
 
-Add this HTML plugin to serve our webpack bundles
+Add this HTML plugin to serve our Webpack bundles
 
 `npm install --save-dev html-webpack-plugin`
 
@@ -110,3 +110,40 @@ module.exports = {
 ```
 
 Run `npm run dev` and you should see Hello, world! in the console.
+
+## Babel
+
+We need to installing the following four Babel packages
+
+`npm install --save-dev babel-core babel-loader babel-preset-env babel-preset-react`
+
+And lets add Babels default config file to root of our project
+
+`.babelrc`
+
+Then add the following
+```js
+{
+  "presets": ["env", "react"]
+}
+```
+
+Update `webpack.config.js` to use Babel loader for `.js` and `.jsx` files.
+
+```js
+// Babel loader config below
+module: {
+  rules: [
+    {
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      use: [
+        'babel-loader',
+      ],
+    },
+  ],
+},
+resolve: {
+  extensions: ['.js', '.jsx'],
+},
+```

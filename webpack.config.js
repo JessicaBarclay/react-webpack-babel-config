@@ -25,8 +25,19 @@ module.exports = {
       template: path.join(paths.SRC, 'index.html'),
     }),
   ],
-  // Dev server configuration -> REMOVED IN THIS STEP
-  // devServer: {
-  //   contentBase: paths.SRC,
-  // },
+  // Babel loader config below
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: [
+          'babel-loader',
+        ],
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
 };
